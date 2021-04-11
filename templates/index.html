@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="jumbotron text-center p-4">
+        <h2>Cloudinary Image Management Demo</h2>
+      </div>
+    </div>
+    <div class="col-lg-9 text-center">
+      <h5>This is a Python + Flask demo application to showcase Cloudinary's comprehensive APIs and administration capabilities.</h5>
+    </div>
+    <div class="col-lg-7 text-center">
+      <a href="{{ url_for('upload') }}" class="btn btn-primary m-3">Upload Images</a>
+      <a href="{{ url_for('gallery') }}" class="btn btn-primary m-3">Image Gallery</a>
+      <img width="100%" src="{{ url_for('static', filename='home.jpg') }}">
+    </div>
+  </div>
+</div>
+{% endblock %}
