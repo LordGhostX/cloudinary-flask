@@ -17,7 +17,7 @@ def gallery():
 
 @app.route("/upload/")
 def upload():
-    return render_template("index.html")
+    return render_template("upload.html")
 
 
 if __name__ == "__main__":

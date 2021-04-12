@@ -1,0 +1,25 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="jumbotron text-center p-4">
+        <h2>Cloudinary Image Management Demo</h2>
+      </div>
+    </div>
+    <div class="col-lg-6 text-center">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="image">Choose Image</label>
+          <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary m-3">Upload Image</button>
+          <a href="{{ url_for('index') }}" class="btn btn-primary m-3">Go Home</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
