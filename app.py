@@ -22,17 +22,22 @@ def index():
 
 @app.route("/gallery/")
 def gallery():
-    return render_template("index.html")
+    return render_template("gallery.html")
 
 
 @app.route("/upload/", methods=["GET", "POST"])
 def upload():
     if request.method == "POST":
         image = request.files["image"]
-        if image and image.filename.split(".")[-1].lower() in ALLOWED_EXTENSIONS:
+        description = request.form.get("description")
+        if image and description and image.filename.split(".")[-1].lower() in ALLOWED_EXTENSIONS:
             filename = secure_filename(image.filename)
             image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            mongo.db.gallery.insert_one({"filename": filename})
+
+            mongo.db.gallery.insert_one({
+                "filename": filename,
+                "description": description.strip()
+            })
 
             flash("Successfully uploaded image to gallery!", "success")
             return redirect(url_for("upload"))
