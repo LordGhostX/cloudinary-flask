@@ -1,17 +1,21 @@
-import os
+import cloudinary
+import cloudinary.uploader
 from flask import *
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 Bootstrap(app)
 app.config["SECRET_KEY"] = "SECRET_KEY"
-app.config["UPLOAD_FOLDER"] = "static/uploads/"
-app.config["MONGO_DBNAME"] = "image-gallery"
-app.config["MONGO_URI"] = "mongodb://localhost:27017/image-gallery"
+app.config["MONGO_DBNAME"] = "gallery"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/gallery"
 
 mongo = PyMongo(app)
+cloudinary.config(
+    cloud_name="CLOUDINARY CLOUD NAME",
+    api_key="CLOUDINARY API KEY",
+    api_secret="CLOUDINARY API SECRET"
+)
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "gif"]
 
 
@@ -31,11 +35,10 @@ def upload():
         image = request.files["image"]
         description = request.form.get("description")
         if image and description and image.filename.split(".")[-1].lower() in ALLOWED_EXTENSIONS:
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-
+            upload_result = cloudinary.uploader.upload(image)
             mongo.db.gallery.insert_one({
-                "filename": filename,
+                "filename": upload_result["original_filename"],
+                "url": upload_result["secure_url"],
                 "description": description.strip()
             })
 
