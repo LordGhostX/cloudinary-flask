@@ -37,7 +37,6 @@ def upload():
         if image and description and image.filename.split(".")[-1].lower() in ALLOWED_EXTENSIONS:
             upload_result = cloudinary.uploader.upload(image)
             mongo.db.gallery.insert_one({
-                "filename": upload_result["original_filename"],
                 "url": upload_result["secure_url"],
                 "description": description.strip()
             })
