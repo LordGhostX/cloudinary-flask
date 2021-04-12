@@ -22,7 +22,7 @@ def index():
 
 @app.route("/gallery/")
 def gallery():
-    return render_template("gallery.html")
+    return render_template("gallery.html", gallery=mongo.db.gallery.find())
 
 
 @app.route("/upload/", methods=["GET", "POST"])

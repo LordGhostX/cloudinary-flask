@@ -3,35 +3,22 @@
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-lg-12">
+    <div class="col-lg-12 text-center">
       <div class="jumbotron text-center p-4">
         <h2>Cloudinary Image Management Demo</h2>
       </div>
+      <a href="{{ url_for('index') }}" class="btn btn-primary m-3">Go Home</a>
     </div>
+    {% for i in gallery %}
     <div class="col-lg-4">
       <div class="card">
-        <img class="card-img-top" src="https://media.sproutsocial.com/uploads/2018/04/Facebook-Cover-Photo-Size.png">
+        <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + i.filename) }}">
         <div class="card-body">
-          <p class="card-text">Hello World</p>
+          <p class="card-text">{{ i.description }}</p>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="card">
-        <img class="card-img-top" src="https://media.sproutsocial.com/uploads/2018/04/Facebook-Cover-Photo-Size.png">
-        <div class="card-body">
-          <p class="card-text">Hello World</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="card">
-        <img class="card-img-top" src="https://media.sproutsocial.com/uploads/2018/04/Facebook-Cover-Photo-Size.png">
-        <div class="card-body">
-          <p class="card-text">Hello World</p>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
