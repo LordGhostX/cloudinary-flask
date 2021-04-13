@@ -1,0 +1,4 @@
+Flask_Bootstrap4==4.0.2
+Flask==1.1.2
+Flask_PyMongo==2.3.0
+cloudinary==1.25.0
